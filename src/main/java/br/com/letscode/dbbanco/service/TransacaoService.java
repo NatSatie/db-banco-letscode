@@ -25,7 +25,7 @@ public class TransacaoService {
         this.contaRepository = contaRepository;
     }
 
-    public void sacar(Integer numeroConta, int senha, BigDecimal valor) {
+    public boolean sacar(Integer numeroConta, int senha, BigDecimal valor) {
         var optConta = contaRepository.findByNumeroContaAndSenha(numeroConta, senha);
         if (optConta.isPresent()) {
             Conta conta = optConta.get();
@@ -37,6 +37,7 @@ public class TransacaoService {
             }
             conta.setSaldo(result);
             contaRepository.save(conta);
+            return true;
         } else throw new ContaAutenticacaoException();
     }
 

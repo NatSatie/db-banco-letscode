@@ -41,7 +41,6 @@ public class ClienteControllerTests {
     @Test
     @WithMockUser
     public void salvarClienteTestController() throws Exception {
-
         Cliente cliente = new Cliente("Teste", "test@gmail.com", "(11) 90099-0040");
 
         Cliente clienteEsperado = new Cliente("Teste", "test@gmail.com", "(11) 90099-0040");
