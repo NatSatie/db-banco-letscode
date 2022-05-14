@@ -25,14 +25,13 @@ public class ContaService {
         this.clienteRepository = clienteRepository;
     }
 
-    public void criarConta(Conta conta) {
+    public Conta criarConta(Conta conta) {
         if (!this.clienteRepository.existsById(conta.getCliente().getId())) {
             LOGGER.error("Cliente base não encontrado");
             throw new ClienteNaoEncontradoException();
         }
-
-        contaRepository.save(conta);
         LOGGER.info("Requisição de Nova Conta Aceita");
+        return contaRepository.save(conta);
     }
 
     public List<Conta> selecionaContasPorClienteID(Integer clienteID) {
