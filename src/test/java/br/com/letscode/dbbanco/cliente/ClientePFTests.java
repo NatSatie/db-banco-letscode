@@ -2,6 +2,7 @@ package br.com.letscode.dbbanco.cliente;
 
 import br.com.letscode.dbbanco.entities.cliente.Cliente;
 import br.com.letscode.dbbanco.entities.cliente.ClientePF;
+import br.com.letscode.dbbanco.exception.ClienteJaCadastradoException;
 import br.com.letscode.dbbanco.repository.ClientePFRepository;
 import br.com.letscode.dbbanco.repository.ClientePJRepository;
 import br.com.letscode.dbbanco.repository.ClienteRepository;
@@ -48,14 +49,17 @@ class ClientePFTests {
     }
 
     @Test
-    public void salvarClientePFTeste(){
+    public void salvarClientePFTeste() {
         Cliente cliente = new Cliente("Teste2", "test1@gmail.com", "(11) 90099-0040");
         ClientePF clientePF = new ClientePF("123.123.123-23", LocalDate.of(1999, 12, 12), cliente);
         ClientePF clientePFRetorno = new ClientePF(0, "123.123.123-23", LocalDate.of(1999, 12, 12), cliente);
 
-        clienteService.salvarCliente(cliente);
-        Mockito.when(clientePFRepository.save(clientePF))
-                .thenReturn(clientePFRetorno);
-        Assertions.assertEquals(clientePFRetorno.getId(), 0);
+        Mockito.when(clientePFRepository.save(clientePF)).thenReturn(clientePFRetorno);
+        Mockito.when(clientePFRepository.existsById(clientePF.getId())).thenReturn(false);
+        Mockito.when(clienteRepository.existsById(clientePF.getCliente().getId())).thenReturn(true);
+
+        clientePFRetorno = clienteService.salvarClientePF(clientePF);
+
+        Assertions.assertEquals(0, clientePFRetorno.getId());
     }
 }
