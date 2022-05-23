@@ -67,14 +67,15 @@ class ClienteTests {
 
     @Test
     void salvarClienteTeste() {
-        Cliente clienteSalvar = new Cliente("Teste", "test@gmail.com", "(11) 90099-0040");
+        Cliente cliente = new Cliente("Teste", "test@gmail.com", "(11) 90099-0040");
         Cliente clienteRetorno = new Cliente(0,"Teste", "test@gmail.com", "(11) 90099-0040");
-        Mockito.when(clienteRepository.save(clienteSalvar))
-                .thenReturn(clienteRetorno);
 
-        Assertions.assertEquals(clienteRepository.save(clienteSalvar).getNome(), clienteRetorno.getNome());
-        Assertions.assertEquals(clienteRetorno.getId(), 0);
-        Assertions.assertEquals(clienteRepository.save(clienteSalvar).getEmail(), clienteRetorno.getEmail());
+        Mockito.when(clienteRepository.existsById(cliente.getId())).thenReturn(false);
+        Mockito.when(clienteRepository.save(cliente)).thenReturn(clienteRetorno);
+
+        clienteRetorno = this.clienteService.salvarCliente(cliente);
+
+        Assertions.assertEquals(0, clienteRetorno.getId());
     }
 
 }
