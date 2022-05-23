@@ -60,6 +60,11 @@ class ClientePFTests {
 
         clientePFRetorno = clienteService.salvarClientePF(clientePF);
 
-        Assertions.assertEquals(0, clientePFRetorno.getId());
+        Assertions.assertNotNull(clientePFRetorno.getCliente());
+        Assertions.assertEquals("Teste2", clientePFRetorno.getCliente().getNome());
+        Assertions.assertEquals("test1@gmail.com", clientePFRetorno.getCliente().getEmail());
+        Assertions.assertEquals("(11) 90099-0040", clientePFRetorno.getCliente().getTelefone());
+        Assertions.assertEquals("123.123.123-23", clientePFRetorno.getCPF());
+        Assertions.assertEquals(LocalDate.of(1999, 12, 12), clientePFRetorno.getDataNascimento());
     }
 }
