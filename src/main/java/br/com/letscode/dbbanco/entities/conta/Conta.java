@@ -64,6 +64,15 @@ public class Conta {
         this.tipoCliente = tipoCliente;
     }
 
+    public Conta(Integer numeroConta, Cliente cliente, TipoConta tipoConta, Integer agencia, int senha, TipoCliente tipoCliente) {
+        this.numeroConta = numeroConta;
+        this.cliente = cliente;
+        this.tipoConta = tipoConta;
+        this.agencia = agencia;
+        this.senha = senha;
+        this.tipoCliente = tipoCliente;
+    }
+
     @Override
     public String toString() {
         return  "\nNumero da Conta: " + numeroConta +
