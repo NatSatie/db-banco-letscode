@@ -61,6 +61,7 @@ class ClientePFTests {
         clientePFRetorno = clienteService.salvarClientePF(clientePF);
 
         Assertions.assertNotNull(clientePFRetorno.getCliente());
+        Assertions.assertEquals(0, clientePFRetorno.getId());
         Assertions.assertEquals("Teste2", clientePFRetorno.getCliente().getNome());
         Assertions.assertEquals("test1@gmail.com", clientePFRetorno.getCliente().getEmail());
         Assertions.assertEquals("(11) 90099-0040", clientePFRetorno.getCliente().getTelefone());
