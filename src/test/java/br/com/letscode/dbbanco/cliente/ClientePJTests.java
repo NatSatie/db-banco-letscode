@@ -59,10 +59,12 @@ class ClientePJTests {
         ClientePJ clientePJ = new ClientePJ("11.222.333/0001-44", LocalDate.of(1999, 12, 12), cliente);
         ClientePJ clientePJRetorno = new ClientePJ(0, "11.222.333/0001-44", LocalDate.of(1999, 12, 12), cliente);
 
+        Mockito.when(clientePJRepository.save(clientePJ)).thenReturn(clientePJRetorno);
+        Mockito.when(clientePFRepository.existsById(clientePJ.getId())).thenReturn(false);
+        Mockito.when(clienteRepository.existsById(clientePJ.getCliente().getId())).thenReturn(true);
 
-        clienteService.salvarCliente(cliente);
-        Mockito.when(clientePJRepository.save(clientePJ))
-                .thenReturn(clientePJRetorno);
-        Assertions.assertNotNull(clientePJRetorno.getId());
+        clientePJRetorno = clienteService.salvarClientePJ(clientePJ);
+
+        Assertions.assertEquals(0, clientePJRetorno.getId());
     }
 }
