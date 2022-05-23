@@ -65,6 +65,12 @@ class ClientePJTests {
 
         clientePJRetorno = clienteService.salvarClientePJ(clientePJ);
 
+        Assertions.assertNotNull(clientePJRetorno.getCliente());
         Assertions.assertEquals(0, clientePJRetorno.getId());
+        Assertions.assertEquals("Teste2", clientePJRetorno.getCliente().getNome());
+        Assertions.assertEquals("test2@gmail.com", clientePJRetorno.getCliente().getEmail());
+        Assertions.assertEquals("(11) 90099-0040", clientePJRetorno.getCliente().getTelefone());
+        Assertions.assertEquals("11.222.333/0001-44", clientePJRetorno.getCNPJ());
+        Assertions.assertEquals(LocalDate.of(1999, 12, 12), clientePJRetorno.getDataDeAbertura());
     }
 }
